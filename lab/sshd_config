@@ -1,0 +1,14 @@
+Port 22
+ListenAddress 10.0.2.2
+HostKey /opt/lab/keys/ssh_host_ed25519
+AuthorizedKeysFile /opt/lab/keys/authorized_keys
+PermitRootLogin prohibit-password
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+StrictModes no
+UsePAM no
+PermitTunnel yes
+AllowTcpForwarding yes
+Compression no
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+PidFile /run/sshd-lab.pid

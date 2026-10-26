@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this testbed or data, please cite it as below."
+title: "Network and Infrastructure Security: A Comparative Performance and Security Analysis of VPN vs. SSH Tunneling"
+type: software
+authors:
+  - family-names: "Yakpe Trolindo"
+    given-names: "Hubert"
+    affiliation: "University of Central Florida"
+    email: "hu881229@ucf.edu"
+date-released: 2026-10-26
+version: "1.0.0"
+license: MIT
+repository-code: "https://github.com/cybsecoff31/vpn-vs-ssh-tunnel-benchmark"
+url: "https://cybsecoff31.github.io/vpn-vs-ssh-tunnel-benchmark/"
+keywords:
+  - VPN
+  - SSH tunneling
+  - WireGuard
+  - OpenVPN
+  - TCP-over-TCP
+  - network security
+  - benchmarking
+abstract: >-
+  Testbed, raw measurements and analysis comparing WireGuard, OpenVPN (UDP/TCP),
+  SSH port forwarding and SSH layer-3 tunnelling on throughput, CPU cost,
+  latency, loss robustness and exposure to unauthenticated probing.
+preferred-citation:
+  type: report
+  title: "Network and Infrastructure Security: A Comparative Performance and Security Analysis of VPN vs. SSH Tunneling"
+  authors:
+    - family-names: "Yakpe Trolindo"
+      given-names: "Hubert"
+  institution:
+    name: "University of Central Florida"
+  year: 2026

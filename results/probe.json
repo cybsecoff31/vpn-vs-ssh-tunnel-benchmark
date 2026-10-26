@@ -1,0 +1,32 @@
+{
+ "wg_random148": {
+  "reply": false
+ },
+ "wg_fake_init": {
+  "reply": false
+ },
+ "ovpn_udp_tlscrypt_hardreset": {
+  "reply": false
+ },
+ "ovpn_udp_tlscrypt_random": {
+  "reply": false
+ },
+ "ovpn_tcp_while_peer_connected": {
+  "connect": false,
+  "error": "ConnectionRefusedError"
+ },
+ "ovpn_tcp_tlscrypt": {
+  "connect": true,
+  "banner": "",
+  "after_garbage": "closed"
+ },
+ "ovpn_udp_plain_hardreset": {
+  "reply": true,
+  "bytes": 26
+ },
+ "ssh": {
+  "connect": true,
+  "banner": "SSH-2.0-OpenSSH_10.6",
+  "after_garbage": "data"
+ }
+}

@@ -1,0 +1,15 @@
+# Never commit key material
+keys/
+*.key
+*.pem
+*.crt
+*.csr
+*.srl
+id_ed25519*
+ssh_host_*
+# Python / OS clutter
+__pycache__/
+*.pyc
+.DS_Store
+# Local logs
+*.log
