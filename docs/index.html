@@ -84,12 +84,13 @@ footer a,section a{color:var(--accent)}
     <div class="kicker">Network &amp; Infrastructure Security</div>
     <h1>VPN vs. SSH Tunneling</h1>
     <p class="sub">A Comparative Performance and Security Analysis</p>
-    <p class="author">Hubert Yakpe Trolindo</p>
+    <p class="author">Hubert Yakpé Trolindo</p>
     <p class="affil">University of Central Florida · 2026</p>
     <div class="btns">
       <a class="btn" href="static/Report.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Paper</a>
       <a class="btn" href="https://github.com/cybsecoff31/vpn-vs-ssh-tunnel-benchmark"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-6a4.7 4.7 0 0 1 1.3-3.3c-.2-.3-.6-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2a4.7 4.7 0 0 1 1.3 3.3c0 4.6-2.8 5.6-5.5 6 .4.3.8 1 .8 2v3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>Code</a>
       <a class="btn alt" href="https://github.com/cybsecoff31/vpn-vs-ssh-tunnel-benchmark/tree/main/results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>Data</a>
+<a class="btn alt" href="https://github.com/cybsecoff31/vpn-vs-ssh-tunnel-benchmark/blob/main/paper/guide.docx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>Guide</a>
       <a class="btn alt" href="#cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h4v4H7zM13 7h4v4h-4z"/><path d="M7 11c0 3-1 5-3 6M13 11c0 3-1 5-3 6"/></svg>BibTeX</a>
     </div>
   </div>
@@ -98,7 +99,8 @@ footer a,section a{color:var(--accent)}
 <section>
   <div class="wrap">
     <h2>Abstract</h2>
-    <p class="lead">Layer-3 VPNs and SSH tunnels are often deployed interchangeably to protect data in transit, without measured evidence of what each costs. We built an automated, single-host testbed of three Linux network namespaces with a custom loss/delay emulator. On it we compared WireGuard, OpenVPN (UDP and TCP), SSH port forwarding and SSH layer-3 tunnelling against an unencrypted baseline over 3–5 randomized trials. We measured throughput, CPU cost, latency, robustness to packet loss and responses to unauthenticated probes, and derived deployment guidelines.</p>
+    <p class="lead">Layer-3 VPNs and SSH tunnels are often used interchangeably to protect data in transit, but people rarely measure what each one costs. For this project, I built an automated testbed on a single host, using three Linux network namespaces and my own loss/delay emulator. I then compared WireGuard, OpenVPN (UDP and TCP), SSH port forwarding and SSH layer-3 tunneling against an unencrypted baseline over 3–5 trials. On a clean link, SSH port forwarding reached 18.49 Gbit/s with AES-GCM, user-space WireGuard 2.89 Gbit/s and OpenVPN about 2.24 Gbit/s. Changing OpenVPN’s cipher moved its throughput only within the confidence intervals, which points to per-packet processing rather than cryptography as the bottleneck. Under random loss with CUBIC, every tunnel stayed within about 23% of plain TCP up to 2% loss and I did not see any TCP-over-TCP collapse. With BBR, TCP-in-TCP tunnels ran 18–44% below plain TCP, but they were still about 11–52× faster than under CUBIC. Security differs more than speed: WireGuard and OpenVPN with tls-crypt stayed silent to unauthenticated probes, while SSH disclosed its software version. I conclude with deployment guidelines.</p>
+<p class="note">All experiments ran on one Ubuntu Server 24.04.3 virtual machine (Linux 6.8 arm64, 2 vCPUs at about 4.0 GHz, 8 GiB RAM) in UTM on an Apple Silicon Mac. A step-by-step guide explains how to repeat the whole experiment.</p>
     <figure>
       <img src="static/fig1_pipeline.png" alt="Experimental pipeline: inputs, namespace testbed, probes, processing, outputs" loading="lazy">
       <figcaption><b>Pipeline.</b> Tunnel configurations and network conditions are deployed on a three-namespace testbed, exercised by performance and security probes, and reduced to seven metrics.</figcaption>
@@ -110,8 +112,8 @@ footer a,section a{color:var(--accent)}
   <div class="wrap">
     <h2>Key findings</h2>
     <div class="cards">
-      <div class="card"><div class="n">13×</div><h3>Per-packet work sets the cost</h3><p>OpenVPN and SSH -w make about 13× more context switches per MB than WireGuard. Changing OpenVPN's cipher does not change its speed.</p></div>
-      <div class="card"><div class="n">28–43%</div><h3>Meltdown is conditional</h3><p>With CUBIC every tunnel tracks plain TCP under loss. With BBR, tunnels that carry TCP inside TCP lose 28–43% of their throughput.</p></div>
+      <div class="card"><div class="n">10×</div><h3>Per-packet work sets the cost</h3><p>OpenVPN and SSH -w make about 10× more context switches per MB than WireGuard. Changing OpenVPN's cipher moves its speed only within the confidence intervals.</p></div>
+      <div class="card"><div class="n">18–44%</div><h3>Meltdown is conditional</h3><p>With CUBIC every tunnel stays within about 23% of plain TCP up to 2% loss. With BBR, tunnels that carry TCP inside TCP run 18–44% below plain TCP.</p></div>
       <div class="card"><div class="n">0 replies</div><h3>Silence beats speed</h3><p>WireGuard and tls-crypt OpenVPN ignore unauthenticated probes. sshd announces its exact version, but SSH -L exposes only one port.</p></div>
     </div>
   </div>
@@ -124,17 +126,17 @@ footer a,section a{color:var(--accent)}
       <table>
         <thead><tr><th>Configuration</th><th>Throughput</th><th>Cycles / byte</th><th>Δ RTT (64 B)</th><th>Setup</th><th>Unauth. probe</th></tr></thead>
         <tbody>
-          <tr><td>Raw TCP (baseline)</td><td>28.07 Gbit/s</td><td>1.3</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>WireGuard (wireguard-go)</td><td>1.58 Gbit/s</td><td>19.6</td><td>+113 µs</td><td>0.09 s</td><td><span class="tag ok">silent</span></td></tr>
-          <tr><td>OpenVPN-UDP</td><td>727 Mbit/s</td><td>52.6</td><td>+48 µs</td><td>2.25 s</td><td><span class="tag ok">silent (tls-crypt)</span></td></tr>
-          <tr><td>OpenVPN-TCP</td><td>652 Mbit/s</td><td>60.2</td><td>+43 µs</td><td>2.71 s</td><td><span class="tag ok">silent (tls-crypt)</span></td></tr>
-          <tr><td>SSH -L (ChaCha20)</td><td>4.10 Gbit/s</td><td>10.4</td><td>+61 µs</td><td>0.44 s</td><td><span class="tag warn">version banner</span></td></tr>
-          <tr><td>SSH -L (AES-GCM)</td><td>8.60 Gbit/s</td><td>4.9</td><td>+52 µs</td><td>0.45 s</td><td><span class="tag warn">version banner</span></td></tr>
-          <tr><td>SSH -w (layer-3)</td><td>575 Mbit/s</td><td>72.2</td><td>+52 µs</td><td>0.47 s</td><td><span class="tag warn">version banner</span></td></tr>
+          <tr><td>Raw TCP (baseline)</td><td>106.03 Gbit/s</td><td>0.5</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>WireGuard (wireguard-go)</td><td>2.89 Gbit/s</td><td>15.2</td><td>+25 µs</td><td>0.06 s</td><td><span class="tag ok">silent</span></td></tr>
+          <tr><td>OpenVPN-UDP</td><td>2.24 Gbit/s</td><td>25.5</td><td>+18 µs</td><td>2.14 s</td><td><span class="tag ok">silent (tls-crypt)</span></td></tr>
+          <tr><td>OpenVPN-TCP</td><td>1.76 Gbit/s</td><td>32.1</td><td>+19 µs</td><td>2.49 s</td><td><span class="tag ok">silent (tls-crypt)</span></td></tr>
+          <tr><td>SSH -L (ChaCha20)</td><td>6.48 Gbit/s</td><td>9.8</td><td>+22 µs</td><td>0.44 s</td><td><span class="tag warn">version banner</span></td></tr>
+          <tr><td>SSH -L (AES-GCM)</td><td>18.49 Gbit/s</td><td>3.4</td><td>+20 µs</td><td>0.44 s</td><td><span class="tag warn">version banner</span></td></tr>
+          <tr><td>SSH -w (layer-3)</td><td>1.33 Gbit/s</td><td>45.3</td><td>+22 µs</td><td>0.44 s</td><td><span class="tag warn">version banner</span></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Clean link, one stream, mean of 5 trials on a 2-vCPU VM. Absolute values depend on hardware; see the paper for 95% confidence intervals and limitations.</p>
+    <p class="note">Clean link, one stream, mean of 5 trials on a 2-vCPU arm64 VM. Cycles per byte use the measured 4.0 GHz clock. Setup times include fixed waits in the start-up script (0.5 s for OpenVPN, 0.3 s for SSH). Absolute values depend on hardware; see the paper for 95% confidence intervals and limitations.</p>
   </div>
 </section>
 
@@ -144,10 +146,10 @@ footer a,section a{color:var(--accent)}
     <div class="gallery">
       <figure><img src="static/fig2_stacks.png" alt="Protocol stacks of each tunnel" loading="lazy"><figcaption><b>Protocol stacks.</b> Only OpenVPN-TCP and SSH -w carry TCP inside TCP; SSH -L terminates TCP locally.</figcaption></figure>
       <figure><img src="static/fig3_clean.png" alt="Clean-link throughput and CPU efficiency" loading="lazy"><figcaption><b>Clean-link efficiency.</b> Throughput with 1 and 4 streams and throughput per vCPU-%.</figcaption></figure>
-      <figure><img src="static/fig4_ctx.png" alt="Throughput vs context switches per MB" loading="lazy"><figcaption><b>Context switches vs. throughput.</b> Log–log fit r = −0.95 across six configurations.</figcaption></figure>
+      <figure><img src="static/fig4_ctx.png" alt="Throughput vs context switches per MB" loading="lazy"><figcaption><b>Context switches vs. throughput.</b> Log–log fit r = −0.93 across six configurations.</figcaption></figure>
       <figure><img src="static/fig5_cpu_latency.png" alt="CPU attribution and latency" loading="lazy"><figcaption><b>CPU attribution and latency.</b> Tunnel daemons dominate CPU; wireguard-go shows the highest tail latency.</figcaption></figure>
       <figure><img src="static/fig6_loss.png" alt="Throughput vs packet loss" loading="lazy"><figcaption><b>Loss sweep (CUBIC).</b> Every tunnel follows the 1/√p curve of plain TCP.</figcaption></figure>
-      <figure><img src="static/fig7_bbr.png" alt="CUBIC vs BBR ablation" loading="lazy"><figcaption><b>BBR ablation.</b> With BBR, tunnels that carry TCP inside TCP fall 28–43% behind UDP tunnels.</figcaption></figure>
+      <figure><img src="static/fig7_bbr.png" alt="CUBIC vs BBR ablation" loading="lazy"><figcaption><b>BBR ablation.</b> With BBR, tunnels that carry TCP inside TCP run 18–44% below plain TCP.</figcaption></figure>
     </div>
   </div>
 </section>
@@ -158,7 +160,7 @@ footer a,section a{color:var(--accent)}
     <div class="bib">
       <button class="copy" id="copy">Copy</button>
 <pre id="bibtex">@techreport{yakpetrolindo2026vpnssh,
-  author      = {Yakpe Trolindo, Hubert},
+  author      = {Yakp{\'e} Trolindo, Hubert},
   title       = {Network and Infrastructure Security: A Comparative
                  Performance and Security Analysis of {VPN} vs. {SSH} Tunneling},
   institution = {University of Central Florida},
