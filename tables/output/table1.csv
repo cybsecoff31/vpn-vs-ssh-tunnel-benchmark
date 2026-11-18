@@ -1,0 +1,9 @@
+ID,Layer / transport,Crypto (data / handshake),Path
+Raw,none / TCP,—,kernel
+WG,L3 / UDP,"ChaCha20-Poly1305 / Noise IK, X25519",user (wg-go)
+OV-U,L3 / UDP,"AES-256-GCM / TLS 1.3, RSA-4096",user
+OV-U-C,L3 / UDP,ChaCha20-Poly1305 / same,user
+OV-T,L3 / TCP,AES-256-GCM / same,user
+SSH-L,L7 / TCP,chacha20-poly1305@openssh / Ed25519,user
+SSH-L-A,L7 / TCP,aes256-gcm@openssh / Ed25519,user
+SSH-W,L3 / TCP,chacha20-poly1305@openssh / Ed25519,user

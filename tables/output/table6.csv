@@ -1,0 +1,4 @@
+Milestone claim,Final evidence,Revised claim
+WireGuard 942 Mbit/s at 14% CPU (kernel),wireguard-go 2.89 Gbit/s at 137% of 200%,efficient via batching; kernel variant untested
+"OpenVPN 480 Mbit/s, one thread at 100%, context switching","2.24 Gbit/s; 1,112 vs 110 switches/MB; cipher effect within CIs","per-packet wake-ups limit OpenVPN (supported, narrowed)"
+SSH 310 Mbit/s; meltdown at 2% loss,SSH-L 6.48 Gbit/s; R(2%) = 0.94,"no meltdown under CUBIC; under BBR 18–44% below raw TCP for TCP-in-TCP, still ≥10× CUBIC"

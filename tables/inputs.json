@@ -1,0 +1,6 @@
+{"clock_ghz": 4.0,
+ "clock_source": "Measured in the VM: Step 9.10 of the guide (timed chains of dependent add and mul)",
+ "sloc": {"wireguard-go": 8705, "openvpn": 87135, "openssh": 122763},
+ "sloc_source": "cloc, recorded in Step 9.12 of the guide, see tables/sloc.sh",
+ "kex": "mlkem768x25519-sha256",
+ "kex_source": "ssh -v on cyborg, Step 9.11 of the guide"}

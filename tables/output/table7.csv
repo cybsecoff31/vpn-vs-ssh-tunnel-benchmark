@@ -1,0 +1,6 @@
+Scenario,Recommendation,Reason
+"Site-to-site, edge gateway",WireGuard,best packet-tunnel E; silent; small code
+Admin access to one service,SSH -L,least privilege; fastest single flow; hide port
+"UDP blocked, TCP/443 only",OpenVPN-TCP,parity under CUBIC; on lossy paths BBR gives ≥10× CUBIC
+"Enterprise PKI, full network",OpenVPN-UDP + tls-crypt,certificate integration; probe-silent; DCO
+Production L3 over SSH,avoid SSH -w,lowest E; root and PermitTunnel needed
